@@ -18,18 +18,13 @@ import java.util.UUID;
 public class NewsDto {
 
     UUID uuid;
-
     @NotBlank
     String title;
     @NotBlank
     String message;
-
     @NotNull
     UUID authorUuid;
-
     Long numLikes;
 
-    // shloud have uuid author or User to check if is the same as auth user but pointless at this stage
-    // UUID uuidAuthor;
-    // probably needs a type of news like enum or other table to relate the type of news
+    // TODO probably needs a type of news like enum or other table to relate the type of news
 }

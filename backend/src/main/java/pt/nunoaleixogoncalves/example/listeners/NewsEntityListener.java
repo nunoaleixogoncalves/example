@@ -1,7 +1,7 @@
 package pt.nunoaleixogoncalves.example.listeners;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import pt.nunoaleixogoncalves.example.event.CustomSpringEventPublisher;
 import pt.nunoaleixogoncalves.example.model.News;
 import pt.nunoaleixogoncalves.example.service.NotificationService;
@@ -13,12 +13,11 @@ import javax.persistence.PostUpdate;
  * on mar, 2022
  */
 @Slf4j
+@RequiredArgsConstructor
 public class NewsEntityListener {
 
-    @Autowired
-    private CustomSpringEventPublisher customSpringEventPublisher;
-    @Autowired
-    private NotificationService notificationService;
+    private final CustomSpringEventPublisher customSpringEventPublisher;
+    private final NotificationService notificationService;
 
     @PostUpdate
     private void broadcastNews(News news) {

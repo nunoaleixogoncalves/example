@@ -22,12 +22,13 @@ import java.util.UUID;
 @RequestMapping("user")
 @RequiredArgsConstructor
 public class UserController {
+
     private final UserService userService;
 
-    // TODO composite roles in better in some cases,
-    // so you dont have to set all roles to a power user
+    // TODO composite roles in better in some cases, so you dont have to set all roles to a power user
+    // TODO user dto for user like on the News
 
-    // all is present because its easy to check data and this is just an example
+    // all is present because its easy to check data and this is just an example (TODO implement pageable)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("all")
     public ResponseEntity<List<User>> getUsers() {

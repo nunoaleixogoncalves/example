@@ -8,6 +8,7 @@ import pt.nunoaleixogoncalves.example.model.News;
  * on mar, 2022
  */
 public class CustomSpringEvent extends ApplicationEvent {
+
     private News news;
 
     public CustomSpringEvent(Object source, News news) {

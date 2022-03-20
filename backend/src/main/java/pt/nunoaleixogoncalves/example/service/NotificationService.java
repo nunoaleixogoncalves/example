@@ -21,13 +21,15 @@ public class NotificationService {
     public static final String SUBSCRIBE_NOTIFICATION_NEWS_URL = "/topic/news";
     private static final String SUBSCRIBE_NOTIFICATION_NEWS_URL_PAYLOAD = "10_likes";
 
-    @Autowired
-    @Lazy
-    private SimpMessagingTemplate simpMessagingTemplate;
+    private final SimpMessagingTemplate simpMessagingTemplate;
+    private final NewsMapper newsMapper;
 
-    @Autowired
     @Lazy
-    private NewsMapper newsMapper;
+    @Autowired
+    public NotificationService(SimpMessagingTemplate simpMessagingTemplate, NewsMapper newsMapper) {
+        this.simpMessagingTemplate = simpMessagingTemplate;
+        this.newsMapper = newsMapper;
+    }
 
     public void sendNotificationNews(News news) {
         TransactionSynchronizationManager.registerSynchronization(

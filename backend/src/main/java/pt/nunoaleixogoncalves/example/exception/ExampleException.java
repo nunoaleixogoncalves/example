@@ -1,5 +1,4 @@
-package pt.nunoaleixogoncalves.example.exception;// TODO composite roles in better in some cases,
-// so you dont have to set all roles to a power user
+package pt.nunoaleixogoncalves.example.exception;
 
 import org.springframework.http.HttpStatus;
 

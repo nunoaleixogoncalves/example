@@ -47,14 +47,7 @@ public class News extends EntityBase {
     )
     private Collection<User> likes = new ArrayList<>();
 
-    // @Transient just on model
+    // @Transient if you dont want the field persisted
     @Column(name = "num_likes")
     private Long numLikes = 0L;
-
-    /*public Long getNumLikes() {
-        return (long) this.getLikes().size();
-    }
-    public void setNumLikes() {
-        this.numLikes = (long) this.getLikes().size();
-    }*/
 }

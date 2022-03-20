@@ -1,6 +1,7 @@
 package pt.nunoaleixogoncalves.example.websockets;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -24,7 +25,9 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
  */
 @Configuration
 @Lazy
+@Slf4j
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
     private final IWebSocketsEvents webSocketsEvents;
 
     public WebSocketConfig(ApplicationContext ctx) {
@@ -47,10 +50,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 if (StompCommand.CONNECT.equals(accessor.getCommand()) && accessor.getNativeHeader(AUTHORIZATION) != null) {
                     final List<String> authorization = accessor.getNativeHeader(AUTHORIZATION);
                     // TODO needs token verification
-                    if (authorization != null) {
-                        final String token = authorization.get(0);
-                        webSocketsEvents.connect(accessor, token);
-                    }
+                    log.info("TOKEN websocket: " + authorization.get(0));
+                    final String token = authorization.get(0);
+                    webSocketsEvents.connect(accessor, token);
                 }
                 if (StompCommand.DISCONNECT.equals(accessor.getCommand())) {
                     webSocketsEvents.disconnect(accessor);

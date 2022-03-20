@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class CustomSpringEventListener implements ApplicationListener<CustomSpringEvent> {
+    
     @Override
     public void onApplicationEvent(CustomSpringEvent event) {
         log.info("Received spring custom event - title: " + event.getNews().getTitle() + " - message: " + event.getNews().getMessage());

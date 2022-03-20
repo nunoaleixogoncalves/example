@@ -26,7 +26,7 @@ public class ExampleApplication {
         return new BCryptPasswordEncoder();
     }
 
-    // users being loaded can be on migrantions to if needed
+    // this is easier for demo but migrations probably better
     @Bean
     CommandLineRunner run(UserService userService) {
         return args -> {
