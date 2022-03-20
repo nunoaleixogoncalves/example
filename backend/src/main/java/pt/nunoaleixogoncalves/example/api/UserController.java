@@ -27,6 +27,7 @@ public class UserController {
     // TODO composite roles in better in some cases,
     // so you dont have to set all roles to a power user
 
+    // all is present because its easy to check data and this is just an example
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("all")
     public ResponseEntity<List<User>> getUsers() {

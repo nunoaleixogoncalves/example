@@ -36,6 +36,7 @@ public class NewsController {
         return ResponseEntity.ok(this.newsService.getNewsPage(pageable));
     }
 
+    // all is present because its easy to check data and this is just an example
     @Secured("ROLE_USER")
     @GetMapping("all")
     public ResponseEntity<List<NewsDto>> getNews() {
