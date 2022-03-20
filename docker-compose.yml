@@ -1,0 +1,89 @@
+version: "3.6"
+
+networks:
+  traefik:
+    driver: bridge
+    name: ${TRAEFIK_NETWORK:-traefik_network}
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
+  internal:
+
+services:
+  backend:
+    image: backend:dev
+    build:
+      context: ./
+      dockerfile: ./backend/Dockerfile
+    command: sh -c "./mvnw clean compile spring-boot:run -pl backend"
+    deploy:
+      resources:
+        limits:
+          memory: "2048M"
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/postgres?connectTimeout=60
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      SHOW_SQL: "true"
+    extra_hosts:
+      - "docker.localhost:10.10.10.15"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.entrypoints=http"
+      - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.service=backend"
+      - "traefik.http.services.backend.loadbalancer.server.port=8080"
+    networks:
+      - internal
+      - traefik
+    ports:
+      - 5005:5005
+    restart: on-failure:3
+    user: nonroot
+    volumes:
+      - ./:/app
+      - ~/.m2:/home/nonroot/.m2
+
+  db:
+    image: postgres:13.1-alpine
+    container_name: db
+    deploy:
+      resources:
+        limits:
+          memory: "2048M"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - internal
+    ports:
+      - 5432:5432
+    restart: on-failure:3
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  traefik:
+    image: nunoaleixogoncalves/traefik:v2.1
+    command:
+      - --entrypoints.http.address=:80
+      - --providers.docker
+      - --providers.docker.exposedByDefault=false
+      - --providers.docker.network=${TRAEFIK_NETWORK:-traefik_network}
+    deploy:
+      resources:
+        limits:
+          memory: "512M"
+    networks:
+      traefik:
+        ipv4_address: 10.10.10.15
+    ports:
+      - "80:80"
+    restart: on-failure:3
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  alfresco_content:
+    driver: local
+  postgres_data:
+    driver: local
