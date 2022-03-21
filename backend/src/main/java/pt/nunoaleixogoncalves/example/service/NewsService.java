@@ -54,10 +54,10 @@ public class NewsService {
         });
 
         // comment if you wanna check upvotes faster
-        /*if (news.getLikes().contains(user)) {
+        if (news.getLikes().contains(user)) {
             log.error("user {} already upvote this post", usernameUuid);
             throw new ExampleException(HttpStatus.CONFLICT, "User already upvoted this!");
-        }*/
+        }
         news.getLikes().add(user);
         news.setNumLikes((long) news.getLikes().size());
 

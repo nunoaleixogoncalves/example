@@ -35,12 +35,27 @@ public class ExampleApplication {
 
             userService.saveUser(new User("admin", "Administrator", "admin", new ArrayList<>()));
             userService.saveUser(new User("nuno", "Nuno", "12345", new ArrayList<>()));
-
+            userService.saveUser(new User("teste", "teste", "12345", new ArrayList<>()));
+            userService.saveUser(new User("teste2", "teste2", "12345", new ArrayList<>()));
+            userService.saveUser(new User("teste3", "teste3", "12345", new ArrayList<>()));
+            userService.saveUser(new User("teste4", "teste4", "12345", new ArrayList<>()));
+            userService.saveUser(new User("teste5", "teste5", "12345", new ArrayList<>()));
+            userService.saveUser(new User("teste6", "teste6", "12345", new ArrayList<>()));
+            userService.saveUser(new User("teste7", "teste7", "12345", new ArrayList<>()));
+            userService.saveUser(new User("teste8", "teste8", "12345", new ArrayList<>()));
 
             userService.addRoleToUser("admin", "ROLE_USER");
             userService.addRoleToUser("admin", "ROLE_ADMIN");
 
             userService.addRoleToUser("nuno", "ROLE_USER");
+            userService.addRoleToUser("teste", "ROLE_USER");
+            userService.addRoleToUser("teste2", "ROLE_USER");
+            userService.addRoleToUser("teste3", "ROLE_USER");
+            userService.addRoleToUser("teste4", "ROLE_USER");
+            userService.addRoleToUser("teste5", "ROLE_USER");
+            userService.addRoleToUser("teste6", "ROLE_USER");
+            userService.addRoleToUser("teste7", "ROLE_USER");
+            userService.addRoleToUser("teste8", "ROLE_USER");
         };
     }
 }
